@@ -1,0 +1,93 @@
+<head>
+	<!-- Load plotly.js into the DOM -->
+	 <link href="style1.css">
+     <script src="https://d3js.org/d3.v7.min.js"></script>
+     <script src='https://cdn.plot.ly/plotly-2.12.1.min.js'></script>
+</head>
+
+<body>
+	<div id='myDiv'><!-- Plotly chart will be drawn inside this DIV -->
+ <script>
+
+     var values=[]
+     var values1=[]
+          d3.csv( "Demographic_Village_Level_Total.csv",function(data){
+        //     var map=data.map(function(i){ return i.TOT_P;})
+        //  console.log(map);
+           values=Object.keys(data).map(function(k){return data['TOT_M']});
+           
+           console.log(values);
+
+           values1=Object.keys(data).map(function(k){return data['TOT_F']});
+          console.log(values1);
+          
+
+    var x1 = [];
+var x2 = [];
+var y1 = [];
+var y2 = [];
+for (var i = 1; i < 500; i++) 
+{
+  k = Math.random();
+  x1.push(values);
+  x2.push(values1);
+  y1.push(values);
+  y2.push(values1);
+}
+var trace1 = {
+
+  x: x1,
+  y: y1,
+  name: 'Male_Population',
+  autobinx: false, 
+  histnorm: "Population", 
+  marker: {
+    color: "rgba(255, 100, 102, 0.7)", 
+     line: {
+      color:  "rgba(255, 100, 102, 1)", 
+      width: 1
+    }
+  },  
+  opacity: 0.5, 
+  type: "histogram", 
+  xbins: {
+    end: 2.8, 
+    size: 0.06, 
+    start: .5
+  }
+};
+var trace2 = {
+  x: x2,
+  y: y2, 
+  autobinx: false, 
+  marker: {
+          color: "rgba(100, 200, 102, 0.7)",
+           line: {
+            color:  "rgba(100, 200, 102, 1)", 
+            width: 1
+    } 
+       }, 
+  name: "Women_Population", 
+  opacity: 0.75, 
+  type: "histogram", 
+  xbins: { 
+    end: 4, 
+    size: 0.06, 
+    start: -3.2
+
+  }
+};
+var data = [trace1, trace2];
+var layout = {
+  bargap: 0.05, 
+  bargroupgap: 0.2, 
+  barmode: "overlay", 
+  title: "Census Data For Population", 
+  xaxis: {title: "Villages"}, 
+  yaxis: {title: "Population"}
+};
+Plotly.newPlot('myDiv', data, layout);
+});
+</script>
+  </div>
+</body>
